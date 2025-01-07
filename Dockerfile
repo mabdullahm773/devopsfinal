@@ -5,7 +5,7 @@ FROM python:3.9-slim
 WORKDIR /app
 
 # Copy the Python script into the container
-COPY hello_world.py .
+COPY file.py .
 
 # Define the default command
 CMD ["python", "hello_world.py"]
