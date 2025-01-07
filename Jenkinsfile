@@ -3,11 +3,11 @@ pipeline {
     stages {
         stage('Setup') {
             steps {
-                echo 'Setting up environment...'
-                // Ensure Python is installed
-                sh 'python --version' // Use `bat` on Windows instead of `sh`
+                bat 'echo Setting up environment...'
+                bat 'cd C:\\Path\\To\\Your\\Directory && your_command_here.bat'
             }
         }
+
         stage('Run Script') {
             steps {
                 echo 'Running Hello World script...'
