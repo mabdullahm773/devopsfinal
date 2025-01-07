@@ -3,7 +3,7 @@ pipeline {
 
     environment {
         DOCKER_IMAGE = 'mabdullahm773/devopsfinalimage' // Replace with your Docker Hub repository
-        DOCKER_CREDENTIALS = '3862b495-105f-4e4d-953a-9005c01568cf' // Replace with your Jenkins credentials ID
+        DOCKER_CREDENTIALS = 'docker.io' // Replace with your Jenkins credentials ID
     }
 
     stages {
@@ -18,7 +18,11 @@ pipeline {
                 script {
                     // Build the Docker image using the Dockerfile in the repo
                     //sh "docker build -t ${DOCKER_IMAGE} ."
+                    //bat 'docker build -t %DOCKER_IMAGE% .'
+                    dir('Web-Application') { // Navigate into the cloned repo directory
+                    echo "Building Docker image: ${DOCKER_IMAGE}"
                     bat 'docker build -t %DOCKER_IMAGE% .'
+                    }
                 }
             }
         }
