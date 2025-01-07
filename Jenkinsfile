@@ -4,10 +4,9 @@ pipeline {
         stage('Setup') {
             steps {
                 bat 'echo Setting up environment...'
-                bat 'cd C:\\Path\\To\\Your\\Directory && your_command_here.bat'
+                bat 'cd C:\\ProgramData\\Jenkins\\.jenkins\\workspace\\devopsfinal && your_script.bat'
             }
         }
-
         stage('Run Script') {
             steps {
                 echo 'Running Hello World script...'
