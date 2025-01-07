@@ -1,17 +1,18 @@
 pipeline {
-    agent any
+    agent {
+        docker {
+            image 'python:3.10' // Use a Python Docker image
+        }
+    }
     stages {
-        stage('Setup') {
+        stage('Clone Repository') {
             steps {
-                bat 'echo Setting up environment...'
-                bat 'cd C:\\ProgramData\\Jenkins\\.jenkins\\workspace\\devopsfinal && your_script.bat'
+                checkout scm // This checks out the code from your GitHub repository
             }
         }
-        stage('Run Script') {
+        stage('Run Python Script') {
             steps {
-                echo 'Running Hello World script...'
-                // Run the Python script
-               bat 'C:\\Users\\Mohammad Abdullah\\Desktop\\devopsfinal'
+                sh 'python file.py' // Executes your Python script
             }
         }
     }
