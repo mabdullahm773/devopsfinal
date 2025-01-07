@@ -17,7 +17,8 @@ pipeline {
             steps {
                 script {
                     // Build the Docker image using the Dockerfile in the repo
-                    sh "docker build -t ${DOCKER_IMAGE} ."
+                    //sh "docker build -t ${DOCKER_IMAGE} ."
+                    bat 'docker build -t %DOCKER_IMAGE% .'
                 }
             }
         }
