@@ -12,7 +12,7 @@ pipeline {
             steps {
                 echo 'Running Hello World script...'
                 // Run the Python script
-                bat 'C:\Users\Mohammad Abdullah\Desktop\devopsfinal' // Use `sh` for Linux
+               bat 'C:\\Users\\Mohammad Abdullah\\Desktop\\devopsfinal'
             }
         }
     }
