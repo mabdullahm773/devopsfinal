@@ -4,6 +4,7 @@ pipeline {
     environment {
         DOCKER_IMAGE = 'mabdullahm773/devopsfinalimage:latest' // Docker image you specified
         DOCKER_CREDENTIALS = 'docker-credentials' // Replace with the credentials ID for Docker Hub
+        DOCKER_REGISTRY = 'docker.io'
     }
 
     stages {
@@ -27,15 +28,15 @@ pipeline {
 
         stage('Push Docker Image to Docker Hub') {
             steps {
-                script {
-                    withCredentials([usernamePassword(credentialsId: 'docker-credentials', 
-                                                      usernameVariable: 'DOCKER_USER', 
-                                                      passwordVariable: 'DOCKER_PASS')]) {
+                withCredentials([usernamePassword(credentialsId: 'docker-credentials', 
+                                                  usernameVariable: 'DOCKER_USER', 
+                                                  passwordVariable: 'DOCKER_PASS')]) {
+                    script {
                         // Log into Docker Hub using credentials
                         echo "Logging into Docker Hub"
                         
                         bat """
-                            echo %DOCKER_PASS% | docker login -u %DOCKER_USER% --password-stdin
+                            docker login %DOCKER_REGISTRY% -u %DOCKER_USER% -p %DOCKER_PASS%
                         """
                         
                         // Push the Docker image
