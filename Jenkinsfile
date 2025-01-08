@@ -37,7 +37,7 @@ pipeline {
                         
                         // Push the Docker image
                         echo "Pushing Docker image: ${DOCKER_IMAGE}"
-                        bat "docker push ${DOCKER_IMAGE}"
+                        bat "docker push %DOCKER_IMAGE%"
                     }
                 }
             }
