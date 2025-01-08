@@ -19,8 +19,8 @@ pipeline {
             steps {
                 script {
                     echo "Building Docker image: ${DOCKER_IMAGE}"
-                    // Build Docker image using the Dockerfile in the repository
-                    sh 'docker build -t ${DOCKER_IMAGE} .'
+                    // Use 'bat' instead of 'sh' for Windows
+                    bat 'docker build -t ${DOCKER_IMAGE} .'
                 }
             }
         }
@@ -31,11 +31,11 @@ pipeline {
                     withCredentials([usernamePassword(credentialsId: DOCKER_CREDENTIALS, usernameVariable: 'DOCKER_USER', passwordVariable: 'DOCKER_PASS')]) {
                         // Log into Docker Hub using credentials
                         echo "Logging into Docker Hub"
-                        sh "echo $DOCKER_PASS | docker login -u $DOCKER_USER --password-stdin"
+                        bat "echo $DOCKER_PASS | docker login -u $DOCKER_USER --password-stdin"
                         
                         // Push the Docker image
                         echo "Pushing Docker image: ${DOCKER_IMAGE}"
-                        sh "docker push ${DOCKER_IMAGE}"
+                        bat "docker push ${DOCKER_IMAGE}"
                     }
                 }
             }
