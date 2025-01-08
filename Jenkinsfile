@@ -5,7 +5,8 @@ pipeline {
         DOCKER_IMAGE = 'mabdullahm773/devopsfinalimage:latest' // Docker image you specified
         DOCKER_CREDENTIALS = 'docker-credentials' // Replace with the credentials ID for Docker Hub
         DOCKER_REGISTRY = 'docker.io'
-        DOCKER_PASSWORD = 'dckr_pat_hQ1_clPF69Qu4hF7ECpq7OpBnlk'
+        DOCKER_PASS = 'dckr_pat_hQ1_clPF69Qu4hF7ECpq7OpBnlk'
+        DOCKER_USER = 'mabdullahm773'
     }
 
     stages {
@@ -28,24 +29,22 @@ pipeline {
         }
 
         stage('Push Docker Image to Docker Hub') {
-            steps {
-                withCredentials([usernamePassword(credentialsId: 'docker-credentials', 
-                                                  usernameVariable: 'DOCKER_USER', 
-                                                  passwordVariable: 'DOCKER_PASS')]) {
+            stage('Push Docker Image to Docker Hub') {
+                steps {
                     script {
-                        // Debugging: Print username (password is sensitive and won't be printed)
-                        echo "DOCKER_USER: ${DOCKER_USER}"
-                        // echo "DOCKER_PASS: ${DOCKER_PASS}"              
-        
                         // Log into Docker Hub using credentials
                         echo "Logging into Docker Hub"
                         
-                        // Login with password using --password-stdin
-                        bat "echo %DOCKER_PASSWORD% | docker login %DOCKER_REGISTRY% -u %DOCKER_USER% --password-stdin"
+                        bat """
+                            echo %DOCKER_PASS% | docker login %DOCKER_REGISTRY% -u %DOCKER_USER% --password-stdin
+                        """
                         
                         // Push the Docker image
                         echo "Pushing Docker image: ${DOCKER_IMAGE}"
-                        bat "docker push %DOCKER_IMAGE%"
+                        
+                        bat """
+                            docker push %DOCKER_IMAGE%
+                        """
                     }
                 }
             }
