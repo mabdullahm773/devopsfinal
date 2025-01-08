@@ -20,7 +20,7 @@ pipeline {
                 script {
                     echo "Building Docker image: ${DOCKER_IMAGE}"
                     // Use 'bat' instead of 'sh' for Windows
-                    bat 'docker build -t ${DOCKER_IMAGE} .'
+                    bat 'docker build -t %DOCKER_IMAGE% .'
                 }
             }
         }
