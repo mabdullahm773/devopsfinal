@@ -3,7 +3,7 @@ pipeline {
 
     environment {
         DOCKER_USER = 'mabdullahm773'
-        DOCKER_PASS = 'your-docker-token'  // Avoid hardcoding, use credentials in Jenkins
+        DOCKER_PASS = 'dckr_pat_hQ1_clPF69Qu4hF7ECpq7OpBnlk'  // Avoid hardcoding, use credentials in Jenkins
     }
 
     stages {
