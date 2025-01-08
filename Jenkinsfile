@@ -2,7 +2,7 @@ pipeline {
     agent any
 
     environment {
-        DOCKER_IMAGE = 'mabdullahm773/devopsfinalimage' // Replace with your Docker Hub repository
+        DOCKER_IMAGE = 'mabdullahm773/devopsfinalimage:latest' // Replace with your Docker Hub repository
         DOCKER_CREDENTIALS = 'docker.io' // Replace with your Jenkins credentials ID
     }
 
