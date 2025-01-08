@@ -32,29 +32,23 @@ pipeline {
                                                   usernameVariable: 'DOCKER_USER', 
                                                   passwordVariable: 'DOCKER_PASS')]) {
                     script {
-                        // Debugging: Print username and password (password hidden for security)
-                        echo "Using Docker username: ${DOCKER_USER} and ${DOCKER_PASS}"
-                    
-
+                        // Debugging: Print username (password is sensitive and won't be printed)
+                        echo "Using Docker username: ${DOCKER_USER}"
+        
                         // Log into Docker Hub using credentials
                         echo "Logging into Docker Hub"
                         
-                        // bat """
-                        //     docker login %DOCKER_REGISTRY% -u %DOCKER_USER% -p %DOCKER_PASS%
-                        // """
-                        bat 'echo %DOCKER_PASS% | docker login %DOCKER_REGISTRY% -u %DOCKER_USER% --password-stdin'
+                        // Login with password using --password-stdin
+                        bat "echo %DOCKER_PASS% | docker login %DOCKER_REGISTRY% -u %DOCKER_USER% --password-stdin"
                         
                         // Push the Docker image
-                        
                         echo "Pushing Docker image: ${DOCKER_IMAGE}"
-                        
-                        bat """
-                            docker push %DOCKER_IMAGE%
-                        """
+                        bat "docker push %DOCKER_IMAGE%"
                     }
                 }
             }
         }
+
     }
 
     post {
