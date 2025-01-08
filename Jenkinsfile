@@ -6,7 +6,7 @@ pipeline {
         DOCKER_CREDENTIALS = 'docker-credentials' // Replace with the credentials ID for Docker Hub
         DOCKER_REGISTRY = 'docker.io'
         DOCKER_USERname = 'mabdullahm773'
-        DOCKER_PASSword = 'mabdullah.dockerhub'
+        DOCKER_PASSword = 'dckr_pat_9O7NMfp8d4KdBuQYxASaryQ-W_Y'
     }
 
     stages {
