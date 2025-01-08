@@ -1,18 +1,17 @@
 pipeline {
-    agent any
+    agent any  // Runs on any available agent
 
     environment {
-        DOCKER_IMAGE = 'mabdullahm773/devopsfinalimage:latest' // Update with your Docker Hub repo
-        DOCKER_CREDENTIALS = 'docker-credentials' // Replace with the credentials ID you created for Docker Hub
+        DOCKER_IMAGE = 'mabdullahm773/devopsfinalimage:latest' // Docker image you specified
+        DOCKER_CREDENTIALS = 'docker-credentials' // Replace with the credentials ID for Docker Hub
     }
 
     stages {
         stage('Clone Repository') {
             steps {
-                script {
-                    echo "Cloning public GitHub repository..."
-                    sh 'git pull' // GitHub repo is already cloned
-                }
+                // This step pulls the repository from GitHub
+                echo 'Cloning repository...'
+                checkout scm  // This clones the repository defined in the job configuration
             }
         }
 
@@ -20,17 +19,21 @@ pipeline {
             steps {
                 script {
                     echo "Building Docker image: ${DOCKER_IMAGE}"
+                    // Build Docker image using the Dockerfile in the repository
                     sh 'docker build -t ${DOCKER_IMAGE} .'
                 }
             }
         }
 
-        stage('Push Docker Image') {
+        stage('Push Docker Image to Docker Hub') {
             steps {
                 script {
                     withCredentials([usernamePassword(credentialsId: DOCKER_CREDENTIALS, usernameVariable: 'DOCKER_USER', passwordVariable: 'DOCKER_PASS')]) {
+                        // Log into Docker Hub using credentials
                         echo "Logging into Docker Hub"
                         sh "echo $DOCKER_PASS | docker login -u $DOCKER_USER --password-stdin"
+                        
+                        // Push the Docker image
                         echo "Pushing Docker image: ${DOCKER_IMAGE}"
                         sh "docker push ${DOCKER_IMAGE}"
                     }
