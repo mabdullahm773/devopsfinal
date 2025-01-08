@@ -33,8 +33,8 @@ pipeline {
                                                   passwordVariable: 'DOCKER_PASS')]) {
                     script {
                         // Debugging: Print username and password (password hidden for security)
-                        echo "Using Docker username: ${DOCKER_USER}"
-                        echo "Docker password : ${DOCKER_PASS}"
+                        echo "Using Docker username: ${DOCKER_USER} and ${DOCKER_PASS}"
+                    
 
                         // Log into Docker Hub using credentials
                         echo "Logging into Docker Hub"
