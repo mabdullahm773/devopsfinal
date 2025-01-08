@@ -2,7 +2,7 @@ pipeline {
     agent any
 
     environment {
-        DOCKER_CREDENTIALS = 'docker_credentials' // Replace with your Jenkins credential ID
+        DOCKER_CREDENTIALS = 'docker-credentials' // Replace with your Jenkins credential ID
         DOCKER_REGISTRY = 'docker.io'
     }
 
