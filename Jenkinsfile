@@ -2,18 +2,16 @@ pipeline {
     agent any
 
     environment {
-        DOCKER_IMAGE = 'mabdullahm773/devopsfinalimage:latest' // Replace with your Docker Hub repository
-        DOCKER_CREDENTIALS = 'docker.io' // Replace with your Jenkins credentials ID
+        DOCKER_IMAGE = 'your-dockerhub-username/hello-world-image:latest' // Update with your Docker Hub repo
+        DOCKER_CREDENTIALS = 'docker-credentials' // Replace with the credentials ID you created for Docker Hub
     }
 
     stages {
         stage('Clone Repository') {
             steps {
-                withCredentials([usernamePassword(credentialsId: 'devopsfinal', 
-                                                  usernameVariable: 'username', 
-                                                  passwordVariable: 'password')]) {
-                    // Clone the GitHub repository using credentials
-                    bat 'git clone https://%username%:%password%@github.com/mabdullahm773/devopsfinal'
+                script {
+                    echo "Cloning public GitHub repository..."
+                    sh 'git pull' // GitHub repo is already cloned
                 }
             }
         }
@@ -21,25 +19,35 @@ pipeline {
         stage('Build Docker Image') {
             steps {
                 script {
-                    dir('devopsfinal') { // Navigate into the cloned repo directory
                     echo "Building Docker image: ${DOCKER_IMAGE}"
-                    bat 'docker build -t %DOCKER_IMAGE% .'
-                    }
+                    sh 'docker build -t ${DOCKER_IMAGE} .'
                 }
             }
         }
 
-        stage('Push Docker Image to Docker Hub') {
+        stage('Push Docker Image') {
             steps {
                 script {
-                    // Log in to Docker Hub
                     withCredentials([usernamePassword(credentialsId: DOCKER_CREDENTIALS, usernameVariable: 'DOCKER_USER', passwordVariable: 'DOCKER_PASS')]) {
+                        echo "Logging into Docker Hub"
                         sh "echo $DOCKER_PASS | docker login -u $DOCKER_USER --password-stdin"
+                        echo "Pushing Docker image: ${DOCKER_IMAGE}"
+                        sh "docker push ${DOCKER_IMAGE}"
                     }
-                    // Push the Docker image
-                    sh "docker push ${DOCKER_IMAGE}"
                 }
             }
+        }
+    }
+
+    post {
+        always {
+            echo 'Pipeline finished!'
+        }
+        success {
+            echo 'Pipeline succeeded!'
+        }
+        failure {
+            echo 'Pipeline failed.'
         }
     }
 }
