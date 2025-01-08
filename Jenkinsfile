@@ -2,7 +2,7 @@ pipeline {
     agent any
 
     environment {
-        DOCKER_IMAGE = 'your-dockerhub-username/hello-world-image:latest' // Update with your Docker Hub repo
+        DOCKER_IMAGE = 'mabdullahm773/devopsfinalimage:latest' // Update with your Docker Hub repo
         DOCKER_CREDENTIALS = 'docker-credentials' // Replace with the credentials ID you created for Docker Hub
     }
 
