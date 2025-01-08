@@ -9,7 +9,12 @@ pipeline {
     stages {
         stage('Clone Repository') {
             steps {
-                checkout scm // Pulls the code from your GitHub repository
+                withCredentials([usernamePassword(credentialsId: 'devopsfinal', 
+                                                  usernameVariable: 'username', 
+                                                  passwordVariable: 'password')]) {
+                    // Clone the GitHub repository using credentials
+                    bat 'git clone https://%username%:%password%@github.com/mabdullahm773/devopsfinal'
+                }
             }
         }
 
