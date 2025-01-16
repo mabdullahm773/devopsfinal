@@ -5,9 +5,9 @@ pipeline {
         DOCKER_IMAGE = 'mabdullahm773/devopsfinalimage:latest' // Docker image you specified
         DOCKER_CREDENTIALS = 'docker-credentials' // Replace with the credentials ID for Docker Hub
         DOCKER_REGISTRY = 'docker.io'
-        DOCKER_USER = 'mabdullahm773'
+        DOCKER_USER = 'mabdullah773'
         // pas user directly used
-        DOCKER_PASS = 'dckr_pat_9O7NMfp8d4KdBuQYxASaryQ-W_Y'
+        DOCKER_PASS = 'dckr_pat_Imq1DuzoKkafQwLUXq_OZb9kS4c'
         SLACK_WEBHOOK_URL = 'https://hooks.slack.com/services/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'  // Replace with your actual Slack webhook URL
     }
 
